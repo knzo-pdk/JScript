@@ -28,10 +28,8 @@ var playerScore = 0;
         return cpuHand;
     }
 
-
-
-    //assign incremental integer to array counter
-    function assignDigit(assign){
+    
+    function assignDigit(assign){ //assign incremental integer to array counter
         let digit;
         if(assign === "Rock"){
             digit = 0;
@@ -43,8 +41,8 @@ var playerScore = 0;
         return digit;
     }
 
-    //iterate through an array and return if won or lost
-    function playRound(array, digit, playerHand, cpuHand,cpuScore, playerScore){
+    //counts no# of time 'i' has to increment. Win or lose is then decided on 'i'
+    function playRound(array, digit, playerHand, cpuHand){
 
         let i = 0;
         while(cpuHand !== array[i]) {
@@ -69,35 +67,42 @@ var playerScore = 0;
         container.appendChild(content);
       
         getComputerChoice();
-        return;
+        return [cpuScore, playerScore];
     }
 
-    if(playerScore || cpuScore !== 5) {
-        
-        const btn = document.querySelector('#btn-r'); //reference to button
-        btn.addEventListener('click', () => {  //when clicked on, do...
+    function announce(item){
+        console.log(item);
+    }
+    
+    const btn = document.querySelector('#btn-r'); //reference to button
+    btn.addEventListener('click', () => {  //when clicked on, do...
+        if(playerScore !== 5 && cpuScore !== 5) {
             var num = getComputerChoice();
             playerHand = 'Rock';
             let digit = assignDigit(playerHand); //assign a specific digit to the playerHand
-            playRound(rpp, digit, playerHand, computerHand(num),cpuScore,playerScore);
-        
-        });
-        const btn1 = document.querySelector('#btn-p');
-        btn1.addEventListener('click', () => {  
+            let scoreArr = playRound(rpp, digit, playerHand, computerHand(num));
+            scoreArr.forEach(announce)
+        }    
+    });
+    const btn1 = document.querySelector('#btn-p');
+    btn1.addEventListener('click', () => {  
+        if(playerScore !== 5 && cpuScore !== 5) {
             var num = getComputerChoice();
             playerHand = 'Paper';
             let digit = assignDigit(playerHand);
-            playRound(rpp, digit, playerHand, computerHand(num),cpuScore,playerScore);
-        
-        });
-        const btn2 = document.querySelector('#btn-s');
-        btn2.addEventListener('click', () => {
+            let scoreArr = playRound(rpp, digit, playerHand, computerHand(num));
+            scoreArr.forEach(announce)
+        }
+    });
+    const btn2 = document.querySelector('#btn-s');
+    btn2.addEventListener('click', () => {
+        if(playerScore !== 5 && cpuScore !== 5) {
             var num = getComputerChoice();
             playerHand = 'Scissor';
             let digit = assignDigit(playerHand);
-            playRound(rpp, digit, playerHand, computerHand(num),cpuScore,playerScore);
-        
-        });
-    }    
+            let scoreArr = playRound(rpp, digit, playerHand, computerHand(num));
+            scoreArr.forEach(announce)
+        }
+    });
 // }
 // play();
